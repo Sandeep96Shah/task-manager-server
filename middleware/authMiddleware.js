@@ -21,6 +21,7 @@ const protect = async (req, res, next) => {
 
 // Middleware for admin-only Access
 const adminOnly = (req, res, next) => {
+  console.log({sandeepAdmin: req.user});
   if (req.user && req.user.role === "admin") {
     next();
   } else {
