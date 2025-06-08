@@ -18,7 +18,7 @@ const registerUser = async (req, res) => {
     //  check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
-      res.status(400).json({ message: "User already Exist" });
+      return res.status(400).json({ message: "User already Exist" });
     }
 
     // Determine user role: admin if correct toke is provided else member
@@ -65,13 +65,13 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      res.status(401).json({ message: "Invalid Email/Password" });
+      return res.status(401).json({ message: "Invalid Email/Password" });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res.status(401).json({ message: "Invalid Email/Password" });
+      return res.status(401).json({ message: "Invalid Email/Password" });
     }
 
     //  Return response
